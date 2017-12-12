@@ -49,19 +49,27 @@ $disabled:         $gray;
  */
 
 // Font Families
-$sansFont:     "Helvetica Neue", Helvetica, Arial, sans-serif;
+$sansFont:     "Rubik", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $scriptFont:   "Brush Script", cursive;
-$serifFont:    Georgia, Garamond, "Times New Roman", Times, serif;
+$serifFont:    "Spectral", Georgia, Garamond, "Times New Roman", Times, serif;
 $monoFont:     "Monaco", "Consolas", "Lucida Console", monospace;
 
 // Font Priorities
-$primaryFont: $sansFont;  // Basic font and body copy
-$headerFont: $serifFont;  // Header and display fonts
+$primaryFont: $serifFont;  // Basic font and body copy
+$headerFont: $sansFont;  // Header and display fonts
 $accentFont: $scriptFont; // Specialty font (pullquotes, etc.)
 
+// Header Font Weight
+$headerFontWeight: 300;
+
 // Font Sizes
-$baseFontSize:          18px;
-$baseFontLineHeight:    1.5; // 27px
-$mobileBaseFontSize:    16px;
-$mobileBaseLineHeight:  1.5; // 24px
-$modularScaleRatio:     1.25; // 4:3 (Perfect Fifth)
+$baseFontSize:          16px;
+$baseFontLineHeight:    1.309;
+$mediumFontSize:        18px;
+$mediumLineHeight:      1.309;
+$largeFontSize:         21px;
+$largeLineHeight:       1.309;
+
+// Modular Scale Ratios
+$modularScaleRatio:     1.618; // 4:3 (Perfect Fifth)
+$base2ratio:            1.309;

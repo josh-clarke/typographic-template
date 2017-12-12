@@ -7,6 +7,7 @@ body {
   font-family: $primaryFont;
   @include ms-respond(font-size,0);
   line-height: $baseFontLineHeight;
+  text-rendering: optimizeLegibility;
 }
 
 /**
@@ -14,10 +15,14 @@ body {
 */
 
 $modularscale: (
-  base: $mobileBaseFontSize,
-  ratio: $modularScaleRatio, // 4:3
+  base: $baseFontSize ($baseFontSize * $base2ratio),
+  ratio: $modularScaleRatio,
+  $medium: (
+    base: $mediumFontSize ($mediumFontSize * $base2ratio),
+    ratio: $modularScaleRatio,
+  ),
   $large: (
-    base: $baseFontSize,
+    base: $largeFontSize ($largeFontSize * $base2ratio),
     ratio: $modularScaleRatio,
   )
 );
@@ -27,27 +32,27 @@ $modularscale: (
  * See: http://thesassway.com/advanced/modular-css-typography
  */
 
-.h1, .h2, .h3, .h4, .h5, .h6 { font-family: $headerFont; font-weight: 300; }
-.h4, .h5 { line-height: ($baseFontSize * $baseFontLineHeight) * 1.5; }
+.h1, .h2, .h3, .h4, .h5, .h6 { font-family: $headerFont; font-weight: $headerFontWeight; }
 .h1 {
   @include ms-respond(font-size,6);
   letter-spacing: -2px;
-  line-height: ($baseFontSize * $baseFontLineHeight) * 3;
+  line-height: ($baseFontSize * $baseFontLineHeight) * 4.045;
 }
 .h2 {
   @include ms-respond(font-size,5);
   letter-spacing: -1px;
-  line-height: ($baseFontSize * $baseFontLineHeight) * 2.5;
+  line-height: ($baseFontSize * $baseFontLineHeight) * 2.427;
 }
 .h3 {
   @include ms-respond(font-size,4);
-  line-height: ($baseFontSize * $baseFontLineHeight) * 2;
+  line-height: ($baseFontSize * $baseFontLineHeight) * 2.0225;
 }
+.h4, .h5 { line-height: ($baseFontSize * $baseFontLineHeight) * 1.618; }
 .h4 { @include ms-respond(font-size,3); }
 .h5 { @include ms-respond(font-size,2); }
 .h6 { @include ms-respond(font-size,1); }
 
-.fixed { font-family: $monoFont; font-size: $baseFontSize; line-height: $baseFontLineHeight; }
+.fixed { font-family: $monoFont; font-size: $baseFontSize; line-height: $baseFontLineHeight; font-size: 0.8em;}
 
 .quiet { font-color: $primaryLight; }
 .loud  { font-color: $primary; }
@@ -56,24 +61,56 @@ $modularscale: (
 .bold   { font-weight: 700; @extend .loud; }
 
 .block-margins { margin: 1em 0; }
+.indent-margins { margin: 1em 0em; padding: 0 1.5em; }
 
 .unordered-list { list-style-type: disc; }
 .ordered-list { list-style: decimal; }
 
 .blockquote {
-  @extend .block-margins;
-  @include ms-respond (font-size,1);
-  color: $primaryLight;
-  text-align: center;
-  .q,q {
-    font-family: $accentFont;
-  }
+  @extend .indent-margins;
+  border-left: 3px solid $secondary;
+  color: lighten($primary, 10%);
   .attribution {
     display: block;
     font-family: $primaryFont;
-    @include ms-respond(font-size,0);
     margin-top: 1em;
     &:before { content: "\2014"; }
+  }
+}
+
+.pullquote {
+  @include ms-respond (font-size, 1);
+  border-top: 2px dotted $secondary;
+  color: $primaryLight;
+  float: left;
+  font-family: $headerFont;
+  font-weight: 300;
+  font-style: italic;
+  margin: 1.5rem;
+  padding: 0.5rem 0;
+  width: 50%;
+
+  &__right {
+    float: right;
+    margin: 0 1.5rem 0 0;
+    padding: 0.5rem 0;
+  }
+
+  @include break($medium) {
+    margin-left: -1.5em;
+  }
+
+  &:before,
+  &:after {
+    content: "Begin pull quote.";
+    display: inline-block;
+    height: 0px;
+    text-indent: -9999em;
+    overflow: hidden;
+    width: 0px;
+  }
+  &:after {
+    content: "End pull quote.";
   }
 }
 
@@ -86,6 +123,15 @@ $modularscale: (
   }
 }
 
+.figure {
+  @extend .block-margins;
+  figcaption {
+    color: $primaryLight;
+    font-family: $headerFont;
+    font-style: italic;
+    font-weight: 300;
+  }
+}
 /**
  * Typography class to apply base styles to actual elements.
  * Example: <article class="blog-post typography">
@@ -96,12 +142,12 @@ $modularscale: (
  i, em { @extend .italic; }
  b, strong { @extend .bold; }
 
- h1, .h1 { @extend .h1; margin: 0 0 3rem; }
- h2, .h2 { @extend .h2; margin: 0 0 1.5rem; }
- h3, .h3 { @extend .h3; margin: 0 0 1rem; }
- h4, .h4 { @extend .h4; margin: 0 0 1rem; }
- h5, .h5 { @extend .h5; margin: 0 0 1rem; }
- h6, .h6 { @extend .h6; margin: 0 0 1rem; }
+ h1, .h1 { @extend .h1; margin: 0 0 2rem -0.25rem; }
+ h2, .h2 { @extend .h2; margin: 2rem 0 1.5rem -0.25rem; }
+ h3, .h3 { @extend .h3; margin: 1.5rem 0 1rem -0.25rem; }
+ h4, .h4 { @extend .h4; margin: 1.5rem 0 1rem -0.25rem; }
+ h5, .h5 { @extend .h5; margin: 1.5rem 0 1rem -0.25rem; }
+ h6, .h6 { @extend .h6; margin: 1.5rem 0 1rem -0.25rem; }
 
  p, ul, ol, pre { @extend .block-margins; }
 
@@ -112,4 +158,6 @@ $modularscale: (
  ol { @extend .ordered-list; }
 
  pre, code { @extend .fixed; }
+
+ figure { @extend .figure }
 }

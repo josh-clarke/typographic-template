@@ -17,7 +17,7 @@ import source from 'vinyl-source-stream'
 import buffer from 'vinyl-buffer'
 import util from 'gulp-util'
 import browserSync from 'browser-sync'
-import { paths } from './gulp-config.js'
+import { paths, config } from './gulp-config.js'
 
 const sync = browserSync.create();
 
@@ -44,7 +44,7 @@ function scripts() {
 function styles() {
 	return gulp.src(`${paths.src}/${paths.assets}/sass/**/*.+(scss|sass)`)
 		.pipe(sourcemaps.init({loadMaps: true}))
-			.pipe(sass({outputStyle: 'compressed'}))
+			.pipe(sass(config.sass))
 				.on('error',util.log)
 			.pipe(autoprefixer({
 				browsers: ['last 2 versions'],
